@@ -1,0 +1,126 @@
+* {
+    box-sizing: border-box;
+  }
+  
+  body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+    background: #f5f1eb;
+    color: #2f2a26;
+  }
+  
+  button {
+    font: inherit;
+  }
+  
+  .memory-game {
+    width: min(100% - 32px, 800px);
+    margin: 0 auto;
+    padding: 32px 0;
+  }
+  
+  .game-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+  
+  .game-title {
+    margin: 0 auto 0 0;
+    font-size: 32px;
+  }
+  
+  .header-button {
+    padding: 10px 16px;
+    border: 1px solid #2f2a26;
+    border-radius: 8px;
+    background: transparent;
+    color: inherit;
+    cursor: pointer;
+    transition:
+      background-color 0.2s,
+      color 0.2s;
+  }
+  
+  .header-button:hover {
+    background: #2f2a26;
+    color: #fff;
+  }
+  
+  .game-stats {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-bottom: 24px;
+    font-size: 18px;
+    font-weight: 600;
+  }
+  
+  .moves,
+  .pairs {
+    margin: 0;
+  }
+  
+  .game-board {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    width: min(100%, 600px);
+    margin: 0 auto;
+  }
+  
+  .card {
+    aspect-ratio: 1;
+    border: 0;
+    border-radius: 12px;
+    background: #8b6f5c;
+    color: #fff;
+    font-size: 42px;
+    cursor: pointer;
+    box-shadow: 0 3px 8px rgb(0 0 0 / 15%);
+    transition:
+      transform 0.2s,
+      background-color 0.2s;
+  }
+  
+  .card:hover {
+    transform: translateY(-2px);
+  }
+  
+  .card:focus-visible {
+    outline: 3px solid #2f2a26;
+    outline-offset: 3px;
+  }
+  
+  @media (max-width: 600px) {
+    .memory-game {
+      width: min(100% - 20px, 800px);
+      padding: 20px 0;
+    }
+  
+    .game-header {
+      flex-wrap: wrap;
+    }
+  
+    .game-title {
+      width: 100%;
+      margin-bottom: 8px;
+      text-align: center;
+    }
+  
+    .header-button {
+      flex: 1;
+    }
+  
+    .game-board {
+      gap: 8px;
+    }
+  
+    .card {
+      border-radius: 8px;
+      font-size: 32px;
+    }
+  }
+  
