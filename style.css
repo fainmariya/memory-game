@@ -123,4 +123,20 @@
       font-size: 32px;
     }
   }
-  
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.55);
+    z-index: 1000;
+  }
+  .victory-modal {
+    width: min(90%, 420px);
+    padding: 40px;
+    background: #f7f2ec;
+    border-radius: 20px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+    text-align: center;
+  }
