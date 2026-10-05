@@ -110,6 +110,7 @@ function createGameBoard() {
                 clearInterval(intervalId);
                 isTimerStarted = false;
                 isBoardLocked = true;
+                saveResult();
                 createVictoryModal();
             }
                 
@@ -218,4 +219,70 @@ newGameButton.addEventListener('click', () => {
   
     createGameBoard();
   }
+  function saveResult() {
+    const result = {
+      moves,
+      time: timeCount
+    };
   
+    const savedResults = localStorage.getItem('memoryGameResults');
+    const results = savedResults ? JSON.parse(savedResults) : [];
+  
+    results.push(result);
+    results.sort((a, b) => {
+        if (a.moves !== b.moves) {
+          return a.moves - b.moves;
+        }
+      
+        return a.time - b.time;
+      });
+      const topResults = results.slice(0, 10);
+  
+    localStorage.setItem('memoryGameResults', JSON.stringify(topResults));
+  }
+  function createLeaderboardModal() {
+    const savedResults = localStorage.getItem('memoryGameResults');
+    const results = savedResults ? JSON.parse(savedResults) : [];
+    const modalOverlay = document.createElement('div');
+    modalOverlay.classList.add('modal-overlay');
+    
+    const leaderboardModal = document.createElement('div');
+    leaderboardModal.classList.add ('leaderboard-modal');
+    modalOverlay.append(leaderboardModal);
+
+    const leaderboardTitle = document.createElement('h2');
+    leaderboardTitle.classList.add('leaderboard-title');
+    leaderboardTitle.textContent = 'Leaderboard 🏆';
+    leaderboardModal.append(leaderboardTitle);
+
+    if (results.length === 0) {
+        const emptyResult = document.createElement('p');
+        emptyResult.classList.add('leaderboard-result');
+        emptyResult.textContent = 'No results yet';
+        leaderboardModal.append(emptyResult);
+     }
+    results.forEach((result, index) => {
+        const resultItem = document.createElement('p');
+        resultItem.classList.add('leaderboard-result');
+        const minutes = Math.floor(result.time / 60);
+        const seconds = result.time % 60;
+
+        const formattedMinutes = String(minutes).padStart(2, '0');
+        const formattedSeconds = String(seconds).padStart(2, '0');
+        resultItem.textContent = `${index + 1}. Moves: ${result.moves} | Time: ${formattedMinutes}:${formattedSeconds}`;
+        leaderboardModal.append(resultItem);
+    });
+    const closeButton = document.createElement('button');
+    closeButton.classList.add('leaderboard-close');
+    closeButton.textContent = 'Close';
+    leaderboardModal.append(closeButton);
+    closeButton.addEventListener('click', () => {
+       modalOverlay.remove();
+})
+
+document.body.append(modalOverlay);
+    
+  }
+  leaderboardButton.addEventListener('click', () => {
+    createLeaderboardModal();
+  });
