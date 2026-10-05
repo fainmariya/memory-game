@@ -17,6 +17,10 @@ The goal of the game is to find all matching pairs of cards in the fewest number
 - Results saved in localStorage
 - Responsive layout for desktop and mobile devices
 
+## Deployment
+
+[Memory Game](https://fainmariya.github.io/memory-game/)
+
 ## How to Run
 
 1. Clone the repository:
