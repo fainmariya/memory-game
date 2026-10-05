@@ -152,9 +152,16 @@ newGameButton.addEventListener('click', () => {
       timerElement.textContent = `Time: ${formatTime(timeCount)}`;
     }, 1000);
   }
-  function createVictoryModal() {
+  function createModalOverlay() {
     const modalOverlay = document.createElement('div');
     modalOverlay.classList.add('modal-overlay');
+  
+    document.body.append(modalOverlay);
+  
+    return modalOverlay;
+  }
+  function createVictoryModal() {
+    const modalOverlay = createModalOverlay();
     const victoryModal = document.createElement('div');
     victoryModal.classList.add('victory-modal');
     const victoryTitle = document.createElement('h2');
@@ -177,7 +184,7 @@ newGameButton.addEventListener('click', () => {
     victoryModal.append(victoryTime, victoryMoves);
     victoryModal.append(restartButton);
     modalOverlay.append(victoryModal);
-    document.body.append(modalOverlay);
+    
     restartButton.addEventListener('click', () => {
       modalOverlay.remove();
       resetGame();
@@ -215,7 +222,15 @@ newGameButton.addEventListener('click', () => {
     const savedResults = localStorage.getItem('memoryGameResults');
     const results = savedResults ? JSON.parse(savedResults) : [];
   
-    results.push(result);
+    const isDuplicate = results.some(
+      (savedResult) =>
+        savedResult.moves === result.moves &&
+        savedResult.time === result.time
+    );
+    
+    if (!isDuplicate) {
+      results.push(result);
+    }
     results.sort((a, b) => {
         if (a.moves !== b.moves) {
           return a.moves - b.moves;
@@ -230,8 +245,7 @@ newGameButton.addEventListener('click', () => {
   function createLeaderboardModal() {
     const savedResults = localStorage.getItem('memoryGameResults');
     const results = savedResults ? JSON.parse(savedResults) : [];
-    const modalOverlay = document.createElement('div');
-    modalOverlay.classList.add('modal-overlay');
+    const modalOverlay = createModalOverlay();
     
     const leaderboardModal = document.createElement('div');
     leaderboardModal.classList.add ('leaderboard-modal');
@@ -262,8 +276,6 @@ newGameButton.addEventListener('click', () => {
     closeButton.addEventListener('click', () => {
        modalOverlay.remove();
 })
-
-document.body.append(modalOverlay);
     
   }
   leaderboardButton.addEventListener('click', () => {
