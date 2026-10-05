@@ -149,14 +149,7 @@ newGameButton.addEventListener('click', () => {
     intervalId = setInterval(() => {
       timeCount += 1;
   
-      const minutes = Math.floor(timeCount / 60);
-      const seconds = timeCount % 60;
-  
-      const formattedMinutes = String(minutes).padStart(2, '0');
-      const formattedSeconds = String(seconds).padStart(2, '0');
-  
-      timerElement.textContent =
-        `Time: ${formattedMinutes}:${formattedSeconds}`;
+      timerElement.textContent = `Time: ${formatTime(timeCount)}`;
     }, 1000);
   }
   function createVictoryModal() {
@@ -170,13 +163,7 @@ newGameButton.addEventListener('click', () => {
     const victoryTime = document.createElement('p');
     victoryTime.classList.add('victory-result');
 
-    const minutes = Math.floor(timeCount / 60);
-    const seconds = timeCount % 60;
-
-    const formattedMinutes = String(minutes).padStart(2, '0');
-    const formattedSeconds = String(seconds).padStart(2, '0');
-
-    victoryTime.textContent = `Time: ${formattedMinutes}:${formattedSeconds}`;
+    victoryTime.textContent = `Time: ${formatTime(timeCount)}`;
 
     const victoryMoves = document.createElement('p');
     victoryMoves.classList.add('victory-result');
@@ -264,12 +251,8 @@ newGameButton.addEventListener('click', () => {
     results.forEach((result, index) => {
         const resultItem = document.createElement('p');
         resultItem.classList.add('leaderboard-result');
-        const minutes = Math.floor(result.time / 60);
-        const seconds = result.time % 60;
-
-        const formattedMinutes = String(minutes).padStart(2, '0');
-        const formattedSeconds = String(seconds).padStart(2, '0');
-        resultItem.textContent = `${index + 1}. Moves: ${result.moves} | Time: ${formattedMinutes}:${formattedSeconds}`;
+        
+        resultItem.textContent = `${index + 1}. Moves: ${result.moves} | Time: ${formatTime(result.time)}`;
         leaderboardModal.append(resultItem);
     });
     const closeButton = document.createElement('button');
@@ -286,3 +269,12 @@ document.body.append(modalOverlay);
   leaderboardButton.addEventListener('click', () => {
     createLeaderboardModal();
   });
+function formatTime(time) {
+    const minutes = Math.floor(time / 60);
+    const seconds = time % 60;
+  
+    const formattedMinutes = String(minutes).padStart(2, '0');
+    const formattedSeconds = String(seconds).padStart(2, '0');
+  
+    return `${formattedMinutes}:${formattedSeconds}`;
+  }

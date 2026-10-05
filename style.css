@@ -159,3 +159,56 @@
     font-size: 18px;
     font-weight: 500;
   }
+  @media (max-width: 600px) {
+    .memory-game {
+      width: calc(100% - 20px);
+      padding: 13px 0;
+    }
+  
+    .game-header {
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+  
+    .game-title {
+      width: 100%;
+      margin: 0 0 6px;
+      font-size: 26px;
+      text-align: center;
+    }
+  
+    .header-button {
+      flex: 1;
+      padding: 6px 8px;
+    }
+  
+    .game-stats {
+      gap: 12px;
+      margin-bottom: 16px;
+      font-size: 16px;
+    }
+  
+    .game-board {
+      width: 100%;
+      gap: 7px;
+    }
+  
+    .card {
+      border-radius: 8px;
+      font-size: 28px;
+    }
+  
+    .victory-modal,
+    .leaderboard-modal {
+      width: calc(100% - 32px);
+      padding: 28px 20px;
+    }
+  
+    .leaderboard-title {
+      font-size: 26px;
+    }
+  
+    .leaderboard-result {
+      font-size: 16px;
+    }
+  }
